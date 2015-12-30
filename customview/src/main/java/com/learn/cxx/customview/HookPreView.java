@@ -5,6 +5,7 @@ import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -12,6 +13,7 @@ import android.graphics.Paint.Style;
 import android.graphics.Point;
 import android.graphics.RectF;
 import android.os.Build;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
@@ -50,6 +52,8 @@ public class HookPreView extends View {
     private float radius;
     private RectF cirArea;
     private DecelerateInterpolator interpolator = new DecelerateInterpolator();
+    private DecelerateInterpolator deepInterpolator = new DecelerateInterpolator(4);
+    private float degreeOffset = -90f;
     /**
      * Loading相关变量
      */
@@ -68,37 +72,67 @@ public class HookPreView extends View {
     /**
      * Complete相关变量
      */
-    private ValueAnimator completeAnim;
+    private AnimatorSet completeAnim;
+    //    private ValueAnimator completeAnim;
     private Point rotatedStartPoint;
     private Point rotatedTurnPoint;
     private float hookMaxLength;
     private float cirProgress;
     private float hookProgress;
 
+    /**
+     * Text相关
+     */
+    private float textSize;
+    private String loadingText;
+    private float loadingTextDimenWidth;
+    private float loadingTextProgress;
+    private String completeText;
+    private float completeTextDimenWidth;
+    private float completeTextProgress;
+    private Paint textPaint;
+
+    private float textOffset = 0;
+    private float sPos = 100;
+    private float ePos = 0;
+
+
     private OnAnimatorCompleteListener animCompleteListener;
 
     public HookPreView(Context context) {
         super(context);
-        init();
+        init(context, null);
     }
 
     public HookPreView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
+        init(context, attrs);
     }
 
     public HookPreView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
+        init(context, attrs);
     }
 
     @TargetApi(21)
     public HookPreView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        init();
+        init(context, attrs);
     }
 
-    private void init() {
+    private void init(Context context, AttributeSet attrs) {
+
+        if (attrs != null) {
+            TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.HookPreView);
+            if (ta.hasValue(R.styleable.HookPreView_loadingText))
+                loadingText = ta.getString(R.styleable.HookPreView_loadingText);
+            if (ta.hasValue(R.styleable.HookPreView_completeText))
+                completeText = ta.getString(R.styleable.HookPreView_completeText);
+
+            textSize = ta.getDimension(R.styleable.HookPreView_textSize, 20);
+            ta.recycle();
+        }
+
         greyPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         greyPaint.setColor(Color.parseColor("#dedede"));
         greyPaint.setStyle(Style.FILL);
@@ -112,6 +146,15 @@ public class HookPreView extends View {
         progressPaint.setStrokeWidth(strokeWidth);
         progressPaint.setStyle(Style.STROKE);
 
+        textPaint = new Paint();
+        textPaint.setTextSize(textSize);
+        textPaint.setColor(Color.BLACK);
+
+        // 计算文字像素宽度
+        if (!TextUtils.isEmpty(loadingText))
+            loadingTextDimenWidth = textPaint.measureText(loadingText);
+        if (!TextUtils.isEmpty(completeText))
+            completeTextDimenWidth = textPaint.measureText(completeText);
 
         final ValueAnimator preAnim = ValueAnimator.ofFloat(0.0f, PRE_LOADING_DURING);
         preAnim.setInterpolator(new DecelerateInterpolator(4));
@@ -127,7 +170,7 @@ public class HookPreView extends View {
         ValueAnimator loading = ValueAnimator.ofFloat(0.0f, LOADING_DURING);
         loading.setRepeatMode(ValueAnimator.RESTART);
         loading.setRepeatCount(ValueAnimator.INFINITE);
-        loading.setStartDelay((long) PRE_LOADING_DURING);
+        loading.setStartDelay((long) PRE_LOADING_DURING + 200);
         loading.setDuration((long) LOADING_DURING);
         loading.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -144,8 +187,25 @@ public class HookPreView extends View {
                 invalidate();
             }
         });
+        ValueAnimator textAnim = null;
+        if (!TextUtils.isEmpty(loadingText) || !TextUtils.isEmpty(completeText)) {
+            textAnim = ValueAnimator.ofFloat(0.0f, 1.0f);
+            textAnim.setDuration(700l);
+            textAnim.setInterpolator(new DecelerateInterpolator(4));
+            textAnim.setStartDelay(200);
+            textAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    loadingTextProgress = animation.getAnimatedFraction();
+                    invalidate();
+                }
+            });
+        }
         loadingAnim = new AnimatorSet();
-        loadingAnim.playTogether(preAnim, loading);
+        if (textAnim != null)
+            loadingAnim.playTogether(preAnim, loading, textAnim);
+        else
+            loadingAnim.playTogether(preAnim, loading);
 
 
     }
@@ -181,21 +241,26 @@ public class HookPreView extends View {
     public void stopLoading() {
         if (loadingAnim.isRunning()) {
             loadingAnim.cancel();
-            preProgress = 0;
-            sDegree = 0;
-            eDegree = 0;
-            state = STATE_INIT;
         }
+        preProgress = 0;
+        sDegree = 0;
+        eDegree = 0;
+        loadingTextProgress = 0;
+        completeTextProgress = 0;
+        state = STATE_INIT;
     }
 
     public void complete() {
         stopLoading();
         state = STATE_COMPLETE;
         hookProgress = 0;
+        loadingTextProgress = 0;
+        completeTextProgress = 0;
         if (completeAnim == null) {
-            completeAnim = ValueAnimator.ofFloat(0.0f, COMPLETE_DURING);
-            completeAnim.setDuration((long) COMPLETE_DURING);
-            completeAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            completeAnim = new AnimatorSet();
+            ValueAnimator hookAnim = ValueAnimator.ofFloat(0.0f, COMPLETE_DURING);
+            hookAnim.setDuration((long) COMPLETE_DURING);
+            hookAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animation) {
                     float animValue = (float) animation.getAnimatedValue();
@@ -207,10 +272,20 @@ public class HookPreView extends View {
                     if (animValue >= HOOK_OFFSET)
                         hookProgress = (animValue - HOOK_OFFSET) / (COMPLETE_DURING - HOOK_OFFSET);
 
+                    if (animValue < 100)
+                        loadingTextProgress = 0;
+                    else if (animValue >= 100 && animValue < 800)
+                        loadingTextProgress = deepInterpolator.getInterpolation((animValue - 100) / 700);
+                    else if (animValue > 800)
+                        loadingTextProgress = 1f;
+
+                    if (animValue > 500)
+                        completeTextProgress = interpolator.getInterpolation((animValue - 500) / 600);
+
                     invalidate();
                 }
             });
-            completeAnim.addListener(new Animator.AnimatorListener() {
+            hookAnim.addListener(new Animator.AnimatorListener() {
                 @Override
                 public void onAnimationStart(Animator animation) {
 
@@ -219,7 +294,7 @@ public class HookPreView extends View {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     if (animCompleteListener != null)
-                        animCompleteListener.onAnimatorComlete();
+                        animCompleteListener.onAnimatorComplete();
                 }
 
                 @Override
@@ -232,6 +307,7 @@ public class HookPreView extends View {
 
                 }
             });
+            completeAnim.play(hookAnim);
         }
         completeAnim.start();
     }
@@ -263,11 +339,16 @@ public class HookPreView extends View {
         if (rotatedStartPoint == null)
             rotatedStartPoint = new Point();
         rotatedStartPoint.set((int) (sqrt2 * radius - Math.sqrt(239.0f / 288) * radius), rotatedTurnPoint.y);
+        textOffset = 2 * radius + 100;
+
+        ePos = center.y - radius;
+        sPos = ePos + 100;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         progressPaint.setStrokeWidth(strokeWidth);
+        canvas.drawRect(cirArea, progressPaint);
         if (state == STATE_LOADING) {
             // 设置灰色圆的透明度
             if (preProgress < BG_GREY_OPACITY_DURING)
@@ -289,14 +370,20 @@ public class HookPreView extends View {
 
             // 绘制绿线
             if (sDegree > 0 || eDegree > 0) {
-                canvas.drawArc(cirArea, eDegree - 90, sDegree - eDegree, false, progressPaint);
+                canvas.drawArc(cirArea, eDegree + degreeOffset, sDegree - eDegree, false, progressPaint);
+            }
+
+            // 绘制文字
+            if (loadingTextProgress != 0 && !TextUtils.isEmpty(loadingText)) {
+                textPaint.setAlpha((int) (255 * loadingTextProgress));
+                canvas.drawText(loadingText, center.x - loadingTextDimenWidth / 2, textSize + sPos - (sPos - ePos) * loadingTextProgress, textPaint);
             }
 
         } else if (state == STATE_COMPLETE) {
 
             canvas.drawCircle(center.x, center.y, radius, greyPaint);
             canvas.drawCircle(center.x, center.y, radius - strokeWidth, whitePaint);
-            canvas.drawArc(cirArea, -90, cirProgress * 360, false, progressPaint);
+            canvas.drawArc(cirArea, degreeOffset, cirProgress * 360, false, progressPaint);
 
             int saveCount = canvas.save();
             if (hookProgress != 0) {
@@ -310,11 +397,22 @@ public class HookPreView extends View {
                     canvas.drawLine(rotatedStartPoint.x + e, -rotatedStartPoint.y, rotatedTurnPoint.x, -rotatedStartPoint.y, progressPaint);
                     canvas.drawLine(rotatedTurnPoint.x, -rotatedTurnPoint.y + strokeWidth, rotatedTurnPoint.x, -rotatedTurnPoint.y - (s - rotatedTurnPoint.x + rotatedStartPoint.x), progressPaint);
                 }
-
                 canvas.restoreToCount(saveCount);
             }
 
+            if (!TextUtils.isEmpty(loadingText)) {
+                textPaint.setAlpha((int) ((1 - loadingTextProgress) * 255));
+                canvas.drawText(loadingText, center.x - loadingTextDimenWidth / 2, textSize + ePos, textPaint);
+            }
+
+            // 绘制文字
+            if (completeTextProgress != 0 && !TextUtils.isEmpty(completeText)) {
+                textPaint.setAlpha((int) (255 * completeTextProgress));
+                canvas.drawText(completeText, center.x - completeTextDimenWidth / 2, textSize + sPos - (sPos - ePos) * completeTextProgress, textPaint);
+            }
+
         }
+
     }
 
     public void setOnAnimatorCompleteListener(OnAnimatorCompleteListener listener) {
@@ -322,7 +420,7 @@ public class HookPreView extends View {
     }
 
     public interface OnAnimatorCompleteListener {
-        void onAnimatorComlete();
+        void onAnimatorComplete();
     }
 
 }
