@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:paddingBottom="20dp">
+    <item>
+        <bitmap android:src="@drawable/avatar" />
+    </item>
+    <item>
+        <bitmap android:src="@drawable/avatar" />
+    </item>
+    <item
+        android:width="30dp"
+        android:height="30dp"
+        android:drawable="@drawable/avatar"
+        android:gravity="left|bottom">
+        <bitmap android:src="@drawable/avatar" />
+    </item>
+    <item
+        android:width="30dp"
+        android:height="30dp"
+        android:drawable="@drawable/avatar"
+        android:gravity="left|top">
+        <bitmap android:src="@drawable/avatar" />
+    </item>
+    <item
+        android:width="30dp"
+        android:height="30dp"
+        android:drawable="@drawable/avatar"
+        android:gravity="right|bottom">
+        <bitmap android:src="@drawable/avatar" />
+    </item>
+    <item
+        android:width="30dp"
+        android:height="30dp"
+        android:right="10dp"
+        android:top="10dp"
+        android:drawable="@drawable/avatar"
+        android:gravity="right|top">
+        <bitmap android:src="@drawable/avatar" />
+    </item>
+</layer-list>
