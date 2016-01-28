@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<transition xmlns:android="http://schemas.android.com/apk/res/android"
+    android:autoMirrored="true"
+    android:paddingLeft="200dp"
+    >
+
+    <item android:drawable="@drawable/avatar"
+        android:width="100dp"
+        android:gravity="center"
+        android:height="100dp"/>
+    <item android:drawable="@drawable/avatar"
+        android:width="100dp"
+
+        android:height="100dp"/>
+</transition>
