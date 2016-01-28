@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <scale xmlns:android="http://schemas.android.com/apk/res/android"
     android:drawable="@drawable/avatar"
-    android:scaleGravity="center_horizontal|center_vertical"
-    android:scaleHeight="100%"
-    android:scaleWidth="100%">
+    android:scaleGravity="top"
+    android:scaleHeight="50%"
+    android:scaleWidth="80%">
+    <bitmap android:src="@mipmap/ic_launcher"
+        android:scaleGravity="bottom"
+        android:scaleHeight="100%"
+        android:scaleWidth="80%"/>
+
 </scale>
