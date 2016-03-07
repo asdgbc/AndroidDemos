@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <inset xmlns:android="http://schemas.android.com/apk/res/android"
-    android:drawable="@mipmap/ic_launcher"
-    android:insetBottom="50dp"
+    android:insetBottom="10dp"
+    android:insetLeft="40dp"
+    android:visible="false"
     android:insetRight="100dp">
-
-    <bitmap
-        android:gravity="right"
-        android:src="@mipmap/ic_launcher" />
-    <bitmap
-        android:gravity="right"
-        android:src="@drawable/avatar" />
+    <color android:color="@android:color/holo_blue_bright"/>
 </inset>

@@ -1,32 +1,34 @@
 package com.learn.cxx.drawabledemos.fragments;
 
-import android.graphics.drawable.ScaleDrawable;
+import android.graphics.drawable.LevelListDrawable;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.learn.cxx.drawabledemos.R;
 
 /**
  * @author hzchenxuexing
- * @date 2016年01月28日
- * <p/>
+ * @date 2016年02月15日
+ * <p>
  * Copyright 2016 NetEase. All rights reserved.
  */
-public class ScaleFragment extends BaseFragment {
-    private SeekBar seekBar;
-    ScaleDrawable drawable;
+public class LevelFragment extends BaseFragment {
+
+    TextView tv;
+    LevelListDrawable drawable;
+    SeekBar seekBar;
 
     @Override
     protected int getLayoutResourceId() {
-        return R.layout.fragment_scal;
+        return R.layout.fragment_level;
     }
 
     @Override
     protected void findViews(View v) {
-        ImageView iv = findById(v, R.id.iv);
+        drawable = (LevelListDrawable) findById(v, R.id.iv).getBackground();
         seekBar = findById(v, R.id.seekbar);
-        drawable = (ScaleDrawable) iv.getBackground();
+        tv = findById(v, R.id.tv);
     }
 
     @Override
@@ -35,6 +37,7 @@ public class ScaleFragment extends BaseFragment {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 drawable.setLevel(progress);
+                tv.setText(progress + "");
             }
 
             @Override

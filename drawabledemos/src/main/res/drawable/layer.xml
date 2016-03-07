@@ -33,8 +33,7 @@
         android:height="30dp"
         android:right="10dp"
         android:top="10dp"
-        android:drawable="@drawable/avatar"
-        android:gravity="right|top">
-        <bitmap android:src="@drawable/avatar" />
+        android:drawable="@drawable/cli"
+        android:gravity="right">
     </item>
 </layer-list>

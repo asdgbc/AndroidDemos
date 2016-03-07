@@ -9,14 +9,17 @@
         android:id="@id/iv"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:background="@drawable/rotat" />
+        android:background="@drawable/level" />
 
     <SeekBar
         android:id="@+id/seekbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:max="10000"
+        android:max="100000"
         android:maxHeight="40px"
         android:minHeight="20px" />
-
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </LinearLayout>

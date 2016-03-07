@@ -1,17 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:height="64dp"
-    android:width="64dp"
+    android:width="1dp"
+    android:height="1dp"
+    android:alpha="0.5"
     android:viewportHeight="600"
     android:viewportWidth="600">
+    <path
+        android:name="v"
+        android:fillColor="@android:color/holo_red_light"
+        android:pathData="M300,70 l 0,-70 l 70,70l 0,0 l-70,80z"
+        android:trimPathStart="0.9" />
+
     <group
-        android:name="rotationGroup"
-        android:pivotX="300.0"
-        android:pivotY="300.0"
-        android:rotation="45.0" >
+        android:name="h"
+        android:pivotX="100"
+        android:pivotY="150"
+        android:scaleX="0.5"
+        android:scaleY="0.5">
+
         <path
-            android:name="v"
-            android:fillColor="#000000"
-            android:pathData="M300,70 l 0,-70 70,70 0,0 -70,70z" />
+            android:name="heart"
+            android:fillColor="@android:color/holo_red_dark"
+            android:pathData="M100,0l100,300l100,-300l-100,100z" />
+
+        <path
+            android:fillColor="@android:color/holo_blue_light"
+            android:pathData="M0,0l200,0l200,200l0,200z"/>
     </group>
+
+
 </vector>

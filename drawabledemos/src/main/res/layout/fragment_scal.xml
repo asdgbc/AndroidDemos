@@ -2,13 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical">
 
     <ImageView
         android:id="@+id/iv"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/ins" />
+        android:background="@drawable/scal" />
 
     <SeekBar
         android:id="@+id/seekbar"
@@ -17,4 +18,5 @@
         android:max="10000"
         android:maxHeight="40px"
         android:minHeight="20px" />
+
 </LinearLayout>

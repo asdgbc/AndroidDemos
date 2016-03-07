@@ -1,5 +1,6 @@
 package com.learn.cxx.drawabledemos.fragments;
 
+import android.graphics.drawable.RotateDrawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,7 +19,7 @@ public class TransFragment extends BaseFragment {
     ImageView iv;
     @Override
     protected int getLayoutResourceId() {
-        return R.layout.activity_trans;
+        return R.layout.fragment_trans;
     }
 
     @Override
@@ -37,7 +38,6 @@ public class TransFragment extends BaseFragment {
                 },2000);
             }
         });
-
     }
 
     @Override

@@ -14,7 +14,7 @@ public class SelectorFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     protected int getLayoutResourceId() {
-        return R.layout.activity_selector;
+        return R.layout.fragment_selector;
     }
 
     @Override

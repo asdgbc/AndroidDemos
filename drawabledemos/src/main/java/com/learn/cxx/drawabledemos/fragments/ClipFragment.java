@@ -2,6 +2,7 @@ package com.learn.cxx.drawabledemos.fragments;
 
 import android.graphics.drawable.ClipDrawable;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 
 import com.learn.cxx.drawabledemos.R;
@@ -19,11 +20,12 @@ public class ClipFragment extends BaseFragment {
 
     @Override
     protected int getLayoutResourceId() {
-        return R.layout.activity_clip;
+        return R.layout.fragment_clip;
     }
 
     @Override
     protected void findViews(View v) {
+//        clipDrawable = (ClipDrawable)((ImageView) findById(v,R.id.iv)).getDrawable();
         clipDrawable = (ClipDrawable) findById(v,R.id.iv).getBackground();
         seekBar = findById(v,R.id.seekbar);
     }

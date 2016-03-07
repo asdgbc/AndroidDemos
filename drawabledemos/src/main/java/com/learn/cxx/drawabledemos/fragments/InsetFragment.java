@@ -2,6 +2,7 @@ package com.learn.cxx.drawabledemos.fragments;
 
 import android.graphics.drawable.InsetDrawable;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 
 import com.learn.cxx.drawabledemos.R;
@@ -19,7 +20,7 @@ public class InsetFragment extends BaseFragment {
 
     @Override
     protected int getLayoutResourceId() {
-        return R.layout.activity_inset;
+        return R.layout.fragment_inset;
     }
 
     @Override

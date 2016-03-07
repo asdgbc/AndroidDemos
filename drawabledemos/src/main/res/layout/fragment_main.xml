@@ -15,76 +15,100 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <ProgressBar
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:visibility="gone" />
+
         <Button
             android:id="@+id/bitmap"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="BitmapDrawable" />
+            android:text="Bitmap" />
 
         <Button
             android:id="@+id/ninepatch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="NinePatchDrawable" />
+            android:text="NinePatch" />
 
         <Button
             android:id="@+id/layer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="LayerDrawable" />
+            android:text="Layer" />
 
         <Button
             android:id="@+id/statelist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="StateListDrawable" />
+            android:text="StateList" />
+
+        <Button
+            android:id="@+id/animstatelist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="AnimatedStateList" />
 
         <Button
             android:id="@+id/levellist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="LevelListDrawable" />
+            android:text="LevelList" />
 
         <Button
             android:id="@+id/transition"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TransitionDrawable" />
+            android:text="Transition" />
 
         <Button
             android:id="@+id/inset"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="InsetDrawable" />
+            android:text="Inset" />
 
         <Button
             android:id="@+id/clip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ClipDrawable" />
+            android:text="Clip" />
 
         <Button
             android:id="@+id/scale"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ScaleDrawable" />
+            android:text="Scale" />
 
         <Button
             android:id="@+id/shape"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ShapeDrawable" />
+            android:text="Shape" />
 
         <Button
             android:id="@+id/ripple"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="RippleDrawable" />
+            android:text="Ripple" />
+
         <Button
             android:id="@+id/rotate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="RotateDrawable" />
+            android:text="Rotate" />
+
+        <Button
+            android:id="@+id/vector"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Vector" />
+
+        <Button
+            android:id="@+id/animvec"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="AnimatedVector" />
     </LinearLayout>
 
 </ScrollView>

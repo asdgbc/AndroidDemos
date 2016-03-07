@@ -6,8 +6,6 @@ import android.view.ViewGroup;
 
 import com.learn.cxx.drawabledemos.R;
 
-import java.util.concurrent.TransferQueue;
-
 /**
  * @author hzchenxuexing
  * @date 2016年01月28日
@@ -38,15 +36,19 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bitmap:
+                gotoFragment(BitmapFragment.class);
                 break;
             case R.id.clip:
                 gotoFragment(ClipFragment.class);
                 break;
             case R.id.inset:
+                gotoFragment(InsetFragment.class);
                 break;
             case R.id.layer:
+                gotoFragment(LayerFragment.class);
                 break;
             case R.id.levellist:
+                gotoFragment(LevelFragment.class);
                 break;
             case R.id.ninepatch:
                 break;
@@ -68,7 +70,15 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
             case R.id.rotate:
                 gotoFragment(RotateFragment.class);
                 break;
-
+            case R.id.animstatelist:
+                gotoFragment(AnimSelectorFragment.class);
+                break;
+            case R.id.animvec:
+                gotoFragment(AnimVecFragment.class);
+                break;
+            case R.id.vector:
+                gotoFragment(VecFragment.class);
+                break;
         }
     }
 

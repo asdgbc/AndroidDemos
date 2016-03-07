@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/pressed"
+        android:drawable="@android:color/holo_green_dark"
+        android:state_pressed="true" />
+    <item android:id="@+id/normal">
+        <bitmap android:src="@drawable/avatar" />
+    </item>
+
+    <transition
+        android:fromId="@id/normal"
+        android:toId="@id/pressed">
+
+        <animation-list>
+            <item
+                android:drawable="@drawable/avatar"
+                android:duration="15" />
+            <item
+                android:drawable="@drawable/ic_star_outline_24dp"
+                android:duration="15" />
+            <item
+                android:drawable="@drawable/avatar"
+                android:duration="15" />
+            <item
+                android:drawable="@drawable/ic_star_outline_24dp"
+                android:duration="15" />
+            <item
+                android:drawable="@drawable/avatar"
+                android:duration="15" />
+            <item
+                android:drawable="@drawable/ic_star_outline_24dp"
+                android:duration="15" />
+            <item
+                android:drawable="@drawable/avatar"
+                android:duration="15" />
+            <item
+                android:drawable="@drawable/ic_star_outline_24dp"
+                android:duration="15" />
+            <item
+                android:drawable="@drawable/avatar"
+                android:duration="15" />
+            <item
+                android:drawable="@drawable/ic_star_outline_24dp"
+                android:duration="15" />
+            <item
+                android:drawable="@drawable/avatar"
+                android:duration="15" />
+            <item
+                android:drawable="@drawable/ic_star_outline_24dp"
+                android:duration="15" />
+            <item
+                android:drawable="@drawable/avatar"
+                android:duration="15" />
+            <item
+                android:drawable="@drawable/ic_star_outline_24dp"
+                android:duration="15" />
+            <item
+                android:drawable="@drawable/avatar"
+                android:duration="15" />
+            <item
+                android:drawable="@drawable/ic_star_outline_24dp"
+                android:duration="15" />
+            <item
+                android:drawable="@drawable/avatar"
+                android:duration="15" />
+            <item
+                android:drawable="@drawable/ic_star_outline_24dp"
+                android:duration="15" />
+        </animation-list>
+
+    </transition>
+
+</animated-selector>

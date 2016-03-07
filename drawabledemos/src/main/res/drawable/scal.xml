@@ -2,11 +2,8 @@
 <scale xmlns:android="http://schemas.android.com/apk/res/android"
     android:drawable="@drawable/avatar"
     android:scaleGravity="top"
-    android:scaleHeight="50%"
-    android:scaleWidth="80%">
-    <bitmap android:src="@mipmap/ic_launcher"
-        android:scaleGravity="bottom"
-        android:scaleHeight="100%"
-        android:scaleWidth="80%"/>
+    android:useIntrinsicSizeAsMinimum="false"
+    android:scaleHeight="90%"
+    android:scaleWidth="90%">
 
 </scale>

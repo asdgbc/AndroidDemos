@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <level-list xmlns:android="http://schemas.android.com/apk/res/android">
-<item android:drawable="@drawable/avatar" android:maxLevel="2" android:minLevel="1"/>
+    <item
+        android:drawable="@drawable/avatar"
+        android:maxLevel="20000"
+        android:minLevel="1" />
+    <item
+        android:drawable="@drawable/zhanyue"
+        android:maxLevel="40000"
+        android:minLevel="10001" />
+    <item
+        android:drawable="@drawable/binglunwan"
+        android:maxLevel="60000"
+        android:minLevel="30001" />
 </level-list>
